@@ -1,6 +1,7 @@
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.enum.table import WD_ALIGN_VERTICAL
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.shared import Pt
 from docx.shared import Cm
@@ -14,6 +15,8 @@ unicodes_list = ["\u2582", "\u25a0", "\u25c6", "\u25b6", "\u259a",
 
 TEXT_SIZE = 16
 SQUARE_SIZE = 28
+LETTER_16_WIDTH = 0.2
+MARGIN_WIDTH = 0.9
 
 def encrypt_text(solutions, secret):
     """
@@ -40,11 +43,26 @@ def _set_font_size(paragraphs, font_size=20):
         for run in paragraph.runs:
             run.font.size = Pt(font_size)  # Set font size to 20
 
+def _get_width(txt, font_size):
+    return MARGIN_WIDTH + (len(txt) * LETTER_16_WIDTH) * font_size / 16.
+
 # Function to create a table with 6 columns and add text in the first row
 def create_table_with_columns_and_text(doc, question, ans_symbols):
+    """
+    Create a table in the doc to contain the question text, then the symbols for the solution beneath empty squares
+    :param doc: The doc created
+    :param question: The question text
+    :param ans_symbols: The answer symbols as a list of chars
+    :return: The table created
+    """
     n_cols = len(ans_symbols) + 1
+
+    # Add a table, aligned to the right:
+    # paragraph = doc.add_paragraph()
+    # paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     table = doc.add_table(rows=2, cols=n_cols)
-    table.allow_autofit = False  # Disable autofit
+    table.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    table.allow_autofit = True  # Disable autofit
 
     # Set the width of the first five columns for a single character
     for i in range(n_cols-1):
@@ -62,7 +80,7 @@ def create_table_with_columns_and_text(doc, question, ans_symbols):
 
     # Set the width of the last column to fill the remaining space on the page
     cell = table.cell(0, n_cols-1)
-    cell.width = Cm(14)  # Adjust the width as needed
+    cell.width = Cm(_get_width(question, TEXT_SIZE))  # Adjust the width as needed
     cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER  # Center align vertically
     cell.text = question
     _set_font_size(cell.paragraphs, TEXT_SIZE)
