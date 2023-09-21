@@ -13,7 +13,8 @@ puzzle_size = st.number_input("Puzzle size", 15, 35, 20)
 if st.button("Go") and (len(word_list) > 0):
     puzzle = WordSearch(word_list)
     puzzle.size = puzzle_size
-    os.remove("/tmp/puzzle.pdf")
+    if os.path.isfile("/tmp/puzzle.pdf"):
+        os.remove("/tmp/puzzle.pdf")
     puzzle.save(path="/tmp/puzzle.pdf")
 
     with open("/tmp/puzzle.pdf", "rb") as fp:
