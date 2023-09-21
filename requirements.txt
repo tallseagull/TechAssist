@@ -1,6 +1,6 @@
-PyPDF2
-pandas
-streamlit
-python-docx
-reportlab
-word_search_generator
+PyPDF2==3.0.1
+pandas==1.4.3
+streamlit==1.26.0
+python-docx==0.8.11
+reportlab==4.0.4
+word-search-generator==3.5.0
