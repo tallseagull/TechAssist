@@ -1,5 +1,5 @@
 import streamlit as st
-from word_cipher_gen import WordCipherGen
+from WordCipher.word_cipher_gen import WordCipherGen
 
 st.title("שאלות")
 q_cols = st.columns([0.3, 0.7])
