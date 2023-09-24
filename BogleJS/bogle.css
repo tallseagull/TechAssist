@@ -71,7 +71,7 @@ input[type="button"], .btn {
   padding: 0.5em;
 }
 .btn {
-  background-color: #EC5800
+  background-color: #EC5800;
   border: 0.1em solid #FAC898;
   color: #101010;
   font-size: 25px;
