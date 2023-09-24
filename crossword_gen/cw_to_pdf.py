@@ -45,7 +45,7 @@ def _reverse_hebrew_text(s):
     return res
 
 # Function to create a crossword puzzle PDF
-def create_crossword_pdf(df, across, down, output_filename):
+def create_crossword_pdf(df, across, down, output_filename, solved_df=None):
     """
     Crete a PDF with the crossword
     :param df: The dataframe with the grid for the puzzle. Black cells should contain the '*' char. Empty should be empty. Numbers
@@ -54,6 +54,7 @@ def create_crossword_pdf(df, across, down, output_filename):
         The first item in the 'across' list is the label to use for the across (e.g. across[0] = 'Across')
     :param down: Like across, only for down
     :param output_filename: The name of the PDF to save
+    :param solved_df: (optional) the solved dataframe. If not None, added as a second page
     :return:
     """
     # Create a PDF document
