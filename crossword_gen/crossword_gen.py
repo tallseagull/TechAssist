@@ -270,7 +270,7 @@ class Crossword(object):
         return new_grid
 
     def order_number_words(self):  # orders words and applies numbering system to them
-        self.current_word_list.sort(key=lambda i: (i.col + i.row))
+        self.current_word_list.sort(key=lambda i: (i.col + i.row*100))
         count, icount = 1, 1
         for word in self.current_word_list:
             word.number = count
@@ -281,10 +281,16 @@ class Crossword(object):
                     count += 1
             icount += 1
 
-    def display(self, order=True):  # return (and order/number wordlist) the grid minus the words adding the numbers
-        outStr = ""
-        if order:
-            self.order_number_words()
+    def display(self, prune=True):
+        """
+        Return a dataframe with the empty puzzle. Cells can be one of:
+            * '*' - a black cell
+            * ' ' - a white (empty) cell
+            * number - a cell with a number for a definition
+        :param prune: if True, remove all black rows and columns
+        :return: A DataFrame with the grid
+        """
+        self.order_number_words()
 
         new_grid_data = [[self.empty if l==self.empty else ' ' for l in row] for row in self.grid]
         # Replace all letters in the grid with the ' ' character:
@@ -297,6 +303,23 @@ class Crossword(object):
         else:
             new_grid = pd.DataFrame(new_grid_data)
 
+        if prune:
+            # Columns removal:
+            cols_to_remove = []
+            for col in range(new_grid.shape[1]):
+                if (new_grid.iloc[:,col] == '*').all():
+                    cols_to_remove.append(col)
+            if cols_to_remove:
+                new_grid = new_grid.drop(columns=cols_to_remove)
+
+            # Now the rows:
+            rows_to_remove = []
+            for row in range(new_grid.shape[0]):
+                if (new_grid.iloc[row,:]=='*').all():
+                    rows_to_remove.append(row)
+            if rows_to_remove:
+                new_grid = new_grid.drop(index=rows_to_remove)
+                
         return new_grid.astype(str)
 
     def word_bank(self):
@@ -412,8 +435,8 @@ if __name__ == '__main__':
     # Create the PDF:
     # Sample definitions
     across_defs, down_defs = a.legend()
-    across_definitions = "<br/>".join(across_defs)
-    down_definitions = "<br/>".join(down_defs)
+    across_definitions = ["אופקי"] + across_defs
+    down_definitions = ["מאונך"] + down_defs
 
     # Create a DataFrame from the crossword data
     df = a.display()
