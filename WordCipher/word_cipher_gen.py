@@ -16,7 +16,7 @@ unicodes_list = ["\u2582", "\u25a0", "\u25c6", "\u25b6", "\u259a",
 TEXT_SIZE = 16
 SQUARE_SIZE = 28
 LETTER_16_WIDTH = 0.2
-MARGIN_WIDTH = 0.9
+MARGIN_WIDTH = 1.2
 
 class WordCipherGen:
     def __init__(self):

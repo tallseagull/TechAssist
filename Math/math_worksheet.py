@@ -40,7 +40,7 @@ def create_vertical_question(num1, operation, num2):
     return paragraph
 
 def create_horizontal_question(num1, operation, num2):
-    paragraph = Paragraph(f'{str(num1)} {operation} {str(num2)} = <br/>', right_style)
+    paragraph = Paragraph(f'{str(num1)} {operation} {str(num2)} = <br/><br/><br/>', right_style)
     return paragraph
 
 def generate_math_worksheet(title, operation, number_range, num_questions, output_pdf, direction=DIR_VERTICAL,

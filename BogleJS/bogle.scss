@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+$grid-col: 8.333;
+$primary: #0ebeff;
+$light: #fff;
+
+html, body {
+  font-family: 'Open Sans';
+}
+
+input[type="button"],
+.btn {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-width: 400px;
+
+  padding: 1em;
+  text-align: center;
+
+  [class*="grid-"] {
+    float: left;
+  }
+
+  @for $i from 1 through 12 {
+    .grid-#{$i} {
+      width: 0% + ($grid-col * $i);
+    }
+  }
+}
+
+.boggle {
+  padding: 0 0 1em 0;
+
+  span {
+    display: inline-block;
+    max-width: 120px;
+    min-width: 1em;
+    padding: 2em;
+    margin: 0.1em;
+
+    background-color: $primary;
+    border: 1px $light solid;
+    border-radius: 10px;
+    color: $light;
+  }
+}
+
+.enter-word, .btn {
+  padding: 0.5em;
+}
+
+.btn {
+  background-color: $primary;
+  border: 0.1em solid $primary;
+  color: $light;
+}

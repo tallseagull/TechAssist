@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+html, body {
+  font-family: 'Open Sans';
+}
+input[type="button"], .btn {
+  cursor: pointer;
+  font-family: inherit;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-width: 400px;
+  padding: 1em;
+  text-align: center;
+}
+.container [class*="grid-"] {
+  float: left;
+}
+.container .grid-1 {
+  width: 8.333%;
+}
+.container .grid-2 {
+  width: 16.666%;
+}
+.container .grid-3 {
+  width: 24.999%;
+}
+.container .grid-4 {
+  width: 33.332%;
+}
+.container .grid-5 {
+  width: 41.665%;
+}
+.container .grid-6 {
+  width: 49.998%;
+}
+.container .grid-7 {
+  width: 58.331%;
+}
+.container .grid-8 {
+  width: 66.664%;
+}
+.container .grid-9 {
+  width: 74.997%;
+}
+.container .grid-10 {
+  width: 83.33%;
+}
+.container .grid-11 {
+  width: 91.663%;
+}
+.container .grid-12 {
+  width: 99.996%;
+}
+.boggle {
+  padding: 0 0 1em 0;
+}
+.boggle span {
+  display: inline-block;
+  max-width: 120px;
+  min-width: 1em;
+  padding: 1em;
+  margin: 0.1em;
+  background-color: #FAC898;
+  border: 1px #fff solid;
+  border-radius: 10px;
+  color: #101010;
+  font-size: 30px;
+}
+.enter-word, .btn {
+  padding: 0.5em;
+}
+.btn {
+  background-color: #EC5800
+  border: 0.1em solid #FAC898;
+  color: #101010;
+  font-size: 25px;
+}

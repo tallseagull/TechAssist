@@ -21,9 +21,16 @@ with s_cols[0]:
     st.write("התשובה")
     secret_ans = st.text_input("", key="si")
 
+def _remove_hebrew_end_chars(s):
+    # Replace the end hebrew chars with the regular chars
+    ends = 'םןףךץ'
+    regs = 'מנפכצ'
+    trantab = str.maketrans(ends, regs)
+    return s.translate(trantab)
+
 if st.button("Go!"):
-    sentences = [(questions[i], answers[i]) for i in range(len(questions)) if (questions[i] is not None) and (len(questions[i]) > 0)]
-    secret = (secret_q, secret_ans)
+    sentences = [(questions[i],_remove_hebrew_end_chars(answers[i])) for i in range(len(questions)) if (questions[i] is not None) and (len(questions[i]) > 0)]
+    secret = (secret_q, _remove_hebrew_end_chars(secret_ans))
 
     word_cipher = WordCipherGen()
     word_cipher.create_doc(sentences, secret)
