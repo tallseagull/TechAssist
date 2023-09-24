@@ -3,8 +3,6 @@ import random, re, time, string
 from collections import defaultdict
 from copy import copy as duplicate
 import pandas as pd
-from cw_to_pdf import create_crossword_pdf
-
 
 class Crossword(object):
     def __init__(self, cols, rows, empty='-', maxloops=2000, available_words=None, extra_words=None, letters=None,
@@ -464,14 +462,17 @@ def _remove_hebrew_end_chars(s):
     trantab = str.maketrans(ends, regs)
     return s.translate(trantab)
 
-def read_word_and_defs(filename, hebrew=True):
+def read_word_and_defs(filename=None, data=None, hebrew=True):
     """
     Read the defs and words from a file where each row is {word} | {def}
     :param filename: the name of the text file
     :return:
     """
-    with open(filename, 'r') as fp:
-        lines = fp.readlines()
+    if data is None:
+        with open(filename, 'r') as fp:
+            lines = fp.readlines()
+    else:
+        lines = data.split('\n')
 
     res = []
     for line in lines:
@@ -486,6 +487,8 @@ def read_word_and_defs(filename, hebrew=True):
 ### end class, start execution
 
 if __name__ == '__main__':
+    from cw_to_pdf import create_crossword_pdf
+
     word_list = read_word_and_defs('heb_defs.txt')
     extra_word_list = read_word_and_defs('extra_heb_defs.txt')
     heb_letters = 'אבגדהוזחטיכלמנסעפצקרשת'
