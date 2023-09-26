@@ -49,7 +49,7 @@ else:
     letters = string.ascii_lowercase
 
 if (word_list is not None) and st.button("Go!"):
-    crossword = Crossword(10, 10, '*', 5000, word_list, extra_words=extra_word_list, letters=letters, rtl=True)
+    crossword = Crossword(cw_size, cw_size, '*', 5000, word_list, extra_words=extra_word_list, letters=letters, rtl=True)
     crossword.compute_crossword(time_permitted=5.00, spins=2)
     print(len(crossword.current_word_list), 'out of', len(word_list))
 

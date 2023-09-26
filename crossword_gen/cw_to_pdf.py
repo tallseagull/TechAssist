@@ -16,7 +16,7 @@ heb_style = ParagraphStyle(
     name='CustomStyle',
     fontName='Hebrew',
     fontSize=14,
-    alignment=TA_CENTER,
+    alignment=TA_RIGHT,
     spaceAfter=0.2,
 )
 
@@ -88,6 +88,32 @@ def _gen_crossword_table(df, is_solution=False):
     crossword_table.setStyle(cw_tab_style)
     return crossword_table
 
+def _gen_definitions_legend(across, down):
+    """
+    Add a table with the across and down definitions side by side
+    :param across: A list of across definitions. Each definition a string, e.g. "2. Definition for cells".
+        The first item in the 'across' list is the label to use for the across (e.g. across[0] = 'Across')
+    :param down: Like across, only for down
+    :return:
+    """
+    legend_data = [
+        [
+            Paragraph(
+                f"<br/><strong><u>{across[0][::-1]}</u></strong><br/>" + "<br/>".join(
+                    [_reverse_hebrew_text(a) for a in across[1:]]),
+                heb_style)
+        ],
+        [
+            Paragraph(
+                f"<br/><strong><u>{down[0][::-1]}</u></strong><br/>" + "<br/>".join(
+                    [_reverse_hebrew_text(a) for a in down[1:]]),
+                heb_style)
+        ]
+
+    ]
+    table = Table(legend_data)
+    return table
+
 # Function to create a crossword puzzle PDF
 def create_crossword_pdf(df, across, down, output_filename, solved_df=None):
     """
@@ -112,13 +138,8 @@ def create_crossword_pdf(df, across, down, output_filename, solved_df=None):
     elements.append(Spacer(1, 20))  # Spacer for separation
 
     # Add across and down definitions
-    style = ParagraphStyle(name='Normal')
-    style.leading = 16
-    elements.append(
-        Paragraph(f"<strong><u>{across[0][::-1]}</u></strong><br/>" + "<br/>".join([_reverse_hebrew_text(a) for a in across[1:]]), heb_style))
-    elements.append(Spacer(1, 20))  # Spacer for separation
-    elements.append(
-        Paragraph(f"<strong><u>{down[0][::-1]}</u></strong><br/>" + "<br/>".join([_reverse_hebrew_text(a) for a in down[1:]]), heb_style))
+    legend = _gen_definitions_legend(across, down)
+    elements.append(legend)
 
     # If we have the solution grid, add it as well with a page break:
     if solved_df is not None:
