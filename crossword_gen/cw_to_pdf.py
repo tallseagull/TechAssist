@@ -1,7 +1,6 @@
 import string
-
-from reportlab.lib.enums import TA_RIGHT
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, Paragraph, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_RIGHT, TA_CENTER
@@ -97,21 +96,16 @@ def _gen_definitions_legend(across, down):
     :return:
     """
     legend_data = [
-        [
-            Paragraph(
+            [Paragraph(
                 f"<br/><strong><u>{across[0][::-1]}</u></strong><br/>" + "<br/>".join(
                     [_reverse_hebrew_text(a) for a in across[1:]]),
-                heb_style)
-        ],
-        [
-            Paragraph(
+                heb_style)],
+            [Paragraph(
                 f"<br/><strong><u>{down[0][::-1]}</u></strong><br/>" + "<br/>".join(
                     [_reverse_hebrew_text(a) for a in down[1:]]),
-                heb_style)
-        ]
-
+                heb_style)]
     ]
-    table = Table(legend_data)
+    table = Table(legend_data, colWidths=[90*mm, 90*mm])
     return table
 
 # Function to create a crossword puzzle PDF
@@ -128,7 +122,7 @@ def create_crossword_pdf(df, across, down, output_filename, solved_df=None):
     :return:
     """
     # Create a PDF document
-    doc = SimpleDocTemplate(output_filename, pagesize=letter)
+    doc = SimpleDocTemplate(output_filename, pagesize=A4)
 
     # Create a list to hold the content for the PDF
     elements = []

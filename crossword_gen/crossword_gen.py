@@ -3,6 +3,7 @@ import random, re, time, string
 from collections import defaultdict
 from copy import copy as duplicate
 import pandas as pd
+from crossword_gen.word import Word
 
 class Crossword(object):
     def __init__(self, cols, rows, empty='-', maxloops=2000, available_words=None, extra_words=None, letters=None,
@@ -39,18 +40,13 @@ class Crossword(object):
 
     def clear_grid(self):  # initialize grid and fill with empty character
         self.grid = [[self.empty for j in range(self.cols)] for i in range(self.rows)]
-        # for i in range(self.rows):
-        #     ea_row = []
-        #     for j in range(self.cols):
-        #         ea_row.append(self.empty)
-        #     self.grid.append(ea_row)
         self.grid_index = defaultdict(list)
         self.fit_score_cache = {}
 
     def _randomize_word_list_ord(self, words_list):
         if words_list:
-            random.shuffle(words_list)  # randomize word list
-            words_list.sort(key=lambda i: len(i.word), reverse=True)  # sort by length
+            # random.shuffle(words_list)  # randomize word list
+            words_list.sort(key=lambda w: w.rank, reverse=True)  # sort by length
 
     def randomize_word_list(self):  # also resets words and sorts by length
         self._randomize_word_list_ord(self.available_words)
@@ -199,7 +195,9 @@ class Crossword(object):
 
             if len(self.current_word_list) == 0:  # this is the first word: the seed
                 # top left seed of longest word yields best results (maybe override)
-                vertical, col, row = random.randrange(0, 2), 1, 1
+                vertical = random.randrange(0, 2)
+                col = random.randrange(1, self.cols-len(word))
+                row = random.randrange(1, self.rows-len(word))
                 ''' 
                 # optional center seed method, slower and less keyword placement
                 if vertical:
@@ -417,43 +415,6 @@ class Crossword(object):
             else:
                 across_defs.append(f'{word.number}. {word.clue}')
         return across_defs, down_defs
-
-
-class Word(object):
-    def __init__(self, word=None, clue=None):
-        self.word = re.sub(r'\s', '', word.lower())
-        self.clue = clue
-        self.length = len(self.word)
-        # the below are set when placed on board
-        self.row = None
-        self.col = None
-        self.vertical = None
-        self.number = None
-
-    def down_across(self):  # return down or across
-        if self.vertical:
-            return 'down'
-        else:
-            return 'across'
-
-    def reset(self):
-        # Forget the row, col, vertical, number:
-        self.row = None
-        self.col = None
-        self.vertical = None
-        self.number = None
-
-    def copy(self):
-        # Returns a new copy of self:
-        copy = Word(self.word, self.clue)
-        copy.row = self.row
-        copy.col = self.col
-        copy.vertical = self.vertical
-        copy.number = self.number
-        return copy
-
-    def __repr__(self):
-        return self.word
 
 def _remove_hebrew_end_chars(s):
     # Replace the end hebrew chars with the regular chars
