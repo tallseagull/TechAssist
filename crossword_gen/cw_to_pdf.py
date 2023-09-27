@@ -99,13 +99,14 @@ def _gen_definitions_legend(across, down):
             [Paragraph(
                 f"<br/><strong><u>{across[0][::-1]}</u></strong><br/>" + "<br/>".join(
                     [_reverse_hebrew_text(a) for a in across[1:]]),
-                heb_style)],
-            [Paragraph(
+                heb_style),
+            Paragraph(
                 f"<br/><strong><u>{down[0][::-1]}</u></strong><br/>" + "<br/>".join(
                     [_reverse_hebrew_text(a) for a in down[1:]]),
                 heb_style)]
     ]
-    table = Table(legend_data, colWidths=[90*mm, 90*mm])
+    table = Table(legend_data, colWidths=[95*mm, 95*mm])
+    table.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), "TOP")]))
     return table
 
 # Function to create a crossword puzzle PDF
