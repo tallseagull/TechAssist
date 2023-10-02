@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-height: 70vh;
+    overflow: auto;
+
+    /* Set a white background for the grid */
+    background-color: white;
+    padding: 10px; /* Add some padding to separate grid items from the edges */
+    border: 1px solid black; /* Add a black border around the grid */
+}
+
+
+.grid img {
+    max-height: 80%;
+    max-width: 80%;
+    object-fit: cover;
+}
+
+/* Set a fixed height for the grid items (image containers) */
+.image-container {
+    max-height: calc(70vh / 3 - 10px); /* Adjusted height for each grid item */
+    overflow: hidden;
+    border: 1px solid black; /* Add black grid lines to each image container */
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
