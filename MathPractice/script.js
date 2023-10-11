@@ -13,11 +13,23 @@ function generateQuestions() {
             probability = probability / 3.0;
         }
         if ((Math.random() * 2) < probability) {
-            questions.push({ row, col });
+            if (isNewQuestion(row, col, questions)) {
+                questions.push({ row, col });
+            }
         }
     }
     currentQuestions = questions;
     return questions;
+}
+
+function isNewQuestion(row, col, questions) {
+    // Check if the question is already in our list:
+    for (let i=0; i < questions.length; i++) {
+        if ((row===questions[i].row) && (col===questions[i].col)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function updateLevelDisplay() {
