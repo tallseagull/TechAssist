@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px;
+}
+
+#questions {
+    /* display: flex; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    column-count: 2; /* Display questions in two columns */
+    font-size: 28px; /* Increase font size */
+}
+
+input[type="text"] {
+    width: 40px;
+    text-align: center;
+    margin: 5px;
+}
+
+button {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 20px;
+}
+
+#buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wrong-answer {
+    background-color: red;
+    color: white;
+}
