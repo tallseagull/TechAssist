@@ -62,7 +62,7 @@ function handleSubmit(event) {
         if (!correct) {
             input.classList.add('wrong-answer');
             const correctAnswerDisplay = document.createElement('span');
-            correctAnswerDisplay.innerHTML = ` (Correct: ${correctAnswer})`;
+            correctAnswerDisplay.innerHTML = ` ${correctAnswer}`;
             input.parentNode.appendChild(correctAnswerDisplay);
         }
         answers.push({ row, col, correct });
