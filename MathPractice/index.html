@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>חידון לוח הכפל</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="pyro.css">
 </head>
 <body>
+    <div id="level-display">רמה: 5</div>
     <div id="question-container">
         <h1>חידון לוח הכפל</h1>
+        <div class="pyro" id="fireworks" style="display:none;">
+            <div class="before"></div>
+            <div class="after"></div>
+        </div>
         <form id="quiz-form">
             <div id="questions"></div>
-            <p>
+
             <div id="buttons">
                 <button type="submit" id="submit-button">הגשה</button>
                 <button type="button" id="next-button" disabled>דף הבא</button>
             </div>
         </form>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

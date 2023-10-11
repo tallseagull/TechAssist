@@ -1,12 +1,17 @@
 let questionProbabilities = Array(11).fill().map(() => Array(11).fill(1));
 let currentQuestions = [];
+let level = 5; // Initialize the level
 
 function generateQuestions() {
     let questions = [];
     while (questions.length < 10) {
-        let row = Math.floor(Math.random() * 10) + 1;
-        let col = Math.floor(Math.random() * 10) + 1;
+        let row = Math.floor(Math.random() * level) + 1;
+        let col = Math.floor(Math.random() * level) + 1;
         let probability = questionProbabilities[row][col];
+        // Reduce probability if row=1 or col=1:
+        if ((row==1) || (col==1)) {
+            probability = probability / 3.0;
+        }
         if ((Math.random() * 2) < probability) {
             questions.push({ row, col });
         }
@@ -14,6 +19,12 @@ function generateQuestions() {
     currentQuestions = questions;
     return questions;
 }
+
+function updateLevelDisplay() {
+    const levelDisplay = document.getElementById('level-display');
+    levelDisplay.textContent = `רמה: ${level}`;
+}
+
 
 function updateProbabilities(answers) {
     for (let i = 0; i < answers.length; i++) {
@@ -32,6 +43,7 @@ function displayQuestions(questions) {
     for (let i = 0; i < questions.length; i++) {
         const { row, col } = questions[i];
         const questionElement = document.createElement('div');
+        questionElement.classList.add("qfield");
         questionElement.innerHTML = `
             <label for="q${i}">${row} x ${col} = </label>
             <input type="text" id="q${i}" name="q${i}" required>
@@ -40,9 +52,19 @@ function displayQuestions(questions) {
     }
 }
 
+function showFireworks() {
+    const fireworksContainer = document.getElementById('fireworks');
+    fireworksContainer.style.display = 'block';
+
+    setTimeout(() => {
+        fireworksContainer.style.display = 'none';
+    }, 30000);
+}
+
 function handleSubmit(event) {
     event.preventDefault();
     const answers = [];
+    let allCorrect = true; // Flag to check if all answers are correct
     for (let i = 0; i < 10; i++) {
         const input = document.getElementById(`q${i}`);
 //        const userAnswer = parseInt(input.value, 10);
@@ -62,8 +84,11 @@ function handleSubmit(event) {
         if (!correct) {
             input.classList.add('wrong-answer');
             const correctAnswerDisplay = document.createElement('span');
-            correctAnswerDisplay.innerHTML = ` ${correctAnswer}`;
+            correctAnswerDisplay.innerHTML = `( ${correctAnswer} )`;
             input.parentNode.appendChild(correctAnswerDisplay);
+            allCorrect = false;
+        } else {
+            input.classList.add('correct-answer'); // Apply correct-answer class
         }
         answers.push({ row, col, correct });
     }
@@ -74,11 +99,24 @@ function handleSubmit(event) {
     const nextButton = document.getElementById('next-button');
     submitButton.disabled = true;
     nextButton.disabled = false;
+
+    // Show fireworks if all answers are correct
+    if (allCorrect) {
+        if (level < 10) {
+            level++;
+            updateLevelDisplay();
+        }
+        showFireworks();
+    }
 }
 
 function handleNextClick() {
     const newQuestions = generateQuestions();
     displayQuestions(newQuestions);
+
+    // Disable the fireworks:
+    const fireworksContainer = document.getElementById('fireworks');
+    fireworksContainer.style.display = 'none';
 
     // Enable submit button and disable next button
     const submitButton = document.getElementById('submit-button');
