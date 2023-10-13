@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="pyro.css">
+    <title>Puzzle Game</title>
+</head>
+<body>
+    <h1>Puzzle Game</h1>
+    Instructions: The 3x3 grid should contain the numbers from 1-9. Each number can only appear once. The sum of
+    each row and each column is provided. Can you find the correct solution?
+    <div class="pyro" id="fireworks" style="display:none;">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
+    <div id="game-container">
+        <div id="table-container">
+            <table id="puzzle-table"></table>
+        </div>
+        <button id="submit-button" class="button">Submit</button>
+        <button id="next-puzzle-button" class="button">Next Puzzle</button>
+        <div id="message"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
