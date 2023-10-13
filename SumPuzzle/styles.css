@@ -67,3 +67,25 @@ td.invalid {
     color: #fff;
     margin: 10px;
 }
+
+@media only screen and (max-width: 768px) {
+    td {
+        width: 20px;
+        height: 20px;
+        font-size: 18px; /* Adjust font size for small screens */
+    }
+
+    td input {
+        width: 100%;
+        height: 100%;
+        font-size: 18px; /* Larger font size for input */
+        text-align: center;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%; /* Make the table width responsive */
+    }
+
+}
