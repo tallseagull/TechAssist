@@ -74,6 +74,36 @@ button {
     padding: 0 5px;
 }
 
+@media only screen and (max-width: 768px) {
+    form {
+        margin: 0 10px;
+    }
+
+    #questions {
+        width: 90%;
+        margin: 10px auto;
+        column-count: 1; /* Display questions in two columns */
+        font-size: 16px; /* Increase font size */
+    }
+
+    .qfield {
+        margin: 10px auto;
+    }
+
+    input[type="text"] {
+        width: 20px;
+        text-align: center;
+        margin: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin: 10px;
+    }
+}
+
 /* Fireworks */
 .pyro > .before, .pyro > .after {
   position: absolute;
