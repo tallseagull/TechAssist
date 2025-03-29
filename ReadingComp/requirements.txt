@@ -1,0 +1,8 @@
+langgraph
+python-docx
+sqlalchemy
+streamlit
+python-dotenv
+pydantic
+Pillow
+google-genai
