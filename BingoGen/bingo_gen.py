@@ -98,8 +98,8 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output_file", type=str, default="bingo.pdf", help="Output file name")
     args = parser.parse_args()
 
-    # Get the list of image files - list files in args,directory:
-    image_files = [os.path.join(args.directory, file) for file in os.listdir(args.directory) if file.lower().endswith(".png")]
+    # Get the list of image files - list files in args,directory. Keep only image files (png, jpeg):
+    image_files = [os.path.join(args.directory, file) for file in os.listdir(args.directory) if file.lower().rsplit('.', 1)[-1] in {'png', 'jpeg', 'jpg'}]
 
     # Get the output file name
     output_file = args.output_file

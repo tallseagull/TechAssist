@@ -5,8 +5,24 @@ from reportlab.platypus import SimpleDocTemplate, PageBreak, Paragraph, Table, T
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 import random
+import os
 
-pdfmetrics.registerFont(TTFont('Hebrew', '/Users/talsegalov/code/TechAssist/fonts/arial-hebrew.ttf'))
+def _get_parent_dir():
+    # Get the path of the current module
+    current_module_path = __file__
+
+    # Get the directory containing the current module
+    current_module_directory = os.path.dirname(current_module_path)
+
+    # Get the absolute path of the directory
+    absolute_directory = os.path.abspath(current_module_directory)
+
+    # Get the directory above the current module
+    folder_above = os.path.dirname(absolute_directory)
+
+    return folder_above
+
+pdfmetrics.registerFont(TTFont('Hebrew', os.path.join(_get_parent_dir(), 'fonts', 'arial-hebrew.ttf')))
 
 DIR_VERTICAL = 0
 DIR_HORIZONTAL = 1

@@ -1,3 +1,4 @@
+import os.path
 import string
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -9,7 +10,22 @@ import pandas as pd
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 
-pdfmetrics.registerFont(TTFont('Hebrew', '/Users/talsegalov/code/TechAssist/fonts/arial-hebrew.ttf'))
+def _get_parent_dir():
+    # Get the path of the current module
+    current_module_path = __file__
+
+    # Get the directory containing the current module
+    current_module_directory = os.path.dirname(current_module_path)
+
+    # Get the absolute path of the directory
+    absolute_directory = os.path.abspath(current_module_directory)
+
+    # Get the directory above the current module
+    folder_above = os.path.dirname(absolute_directory)
+
+    return folder_above
+
+pdfmetrics.registerFont(TTFont('Hebrew', os.path.join(_get_parent_dir(), 'fonts', 'arial-hebrew.ttf')))
 
 heb_style = ParagraphStyle(
     name='CustomStyle',

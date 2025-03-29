@@ -7,7 +7,7 @@ st.title("Wordsearch Generator")
 word_list = st.text_area("Words to use (comma separated):")
 # word_list = [wrd.strip().upper() for wrd in word_list_field.split(',')]
 
-puzzle_size = st.number_input("Puzzle size", 15, 35, 20)
+puzzle_size = st.number_input("Puzzle size", 10, 35, 20)
 
 # Create the puzzle:
 if st.button("Go") and (len(word_list) > 0):
